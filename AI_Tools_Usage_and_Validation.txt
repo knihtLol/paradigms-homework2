@@ -1,0 +1,89 @@
+AI TOOLS USAGE AND VALIDATION STATEMENT
+Project: RPC Chat Application — Milestone 4
+
+1. AI TOOLS SELECTED AND USED
+
+The AI tools used during the work on Milestone 4 were:
+
+- ChatGPT (OpenAI, GPT-6): used as a development assistant for planning, implementation support, code explanation, interface development, documentation, and review.
+- OpenAI Codex: used to inspect the Milestone 4 code, run the Part 2 build, and perform integration checks on the WebSocket/RxJS implementation.
+
+2. WHY THESE TOOLS WERE SELECTED
+
+ChatGPT was selected because it can help across the different parts of the project: understanding the assignment requirements, designing a usable interface, writing and explaining frontend code, and preparing technical documentation. It was useful for working through the relationship between the browser interface, WebSocket communication, and the RxJS data streams.
+
+Codex was selected because it can inspect a project repository and work directly with its source files and terminal commands. This made it suitable for checking the implementation, running the production build, and attempting integration tests.
+
+These tools were chosen to complement one another: ChatGPT supported design, implementation, and explanation, while Codex supported repository inspection and execution-oriented checks.
+
+3. HOW THE TOOLS WERE USED
+
+ChatGPT was used to:
+- Translate the Milestone 4 requirements into an implementation plan.
+- Help design and implement the website frontend. The frontend was implemented as a complete browser interface, including the login/registration screen, room navigation, room creation, join/leave controls, member display, membership statistics, message composer, and unified message timeline.
+- Write and connect the browser-side JavaScript to the WebSocket server.
+- Implement the client-side reactive data flow using RxJS concepts, including BehaviorSubject, switchMap, combineLatest, merge, scan, map, and distinctUntilChanged.
+- Improve the visual structure, colors, layout, responsiveness, and user experience of the interface.
+- Prepare the project README and setup instructions.
+- Explain errors and suggest targeted tests for the room membership and message streams.
+
+OpenAI Codex was used to inspect the Milestone 4 files and run checks. It inspected the RxJS client, WebSocket server, and browser application; ran the Vite production build; and performed WebSocket integration checks involving multiple rooms, membership updates, messages from different rooms, chronological ordering, and room removal.
+
+4. AI-GENERATED CONTENT
+
+AI assistance contributed to the following project content:
+- The browser frontend structure and implementation, including HTML, CSS, and browser-side JavaScript.
+- The browser client integration with the WebSocket server.
+- Parts of the RxJS stream composition and related implementation guidance.
+- The project documentation and README instructions.
+- Explanations of the implementation and suggested validation procedures.
+
+The frontend was implemented as a complete user-facing website interface. This describes the implementation of the frontend files and functionality; it should not be interpreted as a claim that every possible browser interaction has been exhaustively tested.
+
+The AI tools were used as development assistants. Their output was reviewed and checked against the assignment requirements rather than treated as automatically correct.
+
+5. VALIDATION OF ACCURACY AND RELEVANCE
+
+The implementation was checked against the three main Milestone 4 requirements:
+
+A. Dynamic joined-room stream
+The implementation maintains a changing list of joined rooms and uses switchMap to rebuild the active room subscriptions when that list changes.
+
+B. Reactive total user count
+The implementation uses combineLatest to combine the latest user-list snapshots for the currently joined rooms. The resulting values are aggregated to calculate the total membership count.
+
+C. Unified chronological message timeline
+The implementation uses merge to combine messages from the joined rooms. The message timeline is accumulated and ordered using message timestamps.
+
+The following checks were reported by Codex:
+- The Vite production build completed successfully.
+- A WebSocket integration test joined two rooms.
+- A second user joining a room produced a live membership update.
+- Messages from two different rooms were received in a unified timeline.
+- The received messages were checked for chronological ordering.
+- A room-removal operation was accepted by the server.
+
+One initial integration attempt reported an error stating that leaving a room did not publish an updated membership event. A subsequent test reported that room removal was accepted, but acceptance by the server alone does not prove that all client-side subscriptions were cleaned up correctly. Therefore, removal-stream cleanup should receive a further targeted test.
+
+The JavaScript syntax-check command was also blocked by a permission error in the execution environment. The production build succeeded, but this should not be presented as a successful independent syntax-check result.
+
+The browser frontend files were implemented, but a complete end-to-end browser test of every screen and interaction was not confirmed. Before final submission, the application should be run locally and tested with at least two users. The test should confirm that the count updates when users join or leave, that messages from joined rooms appear in timestamp order, and that messages from a room stop appearing after leaving it.
+
+These checks distinguish what was actually reported as tested from what still requires manual verification. Any issue found during the final test should be corrected before submission.
+
+6. ABILITY TO EXPLAIN AND REPRODUCE THE WORK WITHOUT AI
+
+I understand the purpose of the main components and can explain the implementation without relying on AI during the demonstration:
+
+- The frontend is the browser interface through which users register, log in, create rooms, join or leave rooms, view members, and send messages.
+- The WebSocket connection provides real-time communication between the browser client and the Node.js server.
+- BehaviorSubject stores the current joined-room list and makes its latest value available to subscribers.
+- switchMap reacts to changes in the joined-room list by replacing the active subscriptions.
+- combineLatest combines the latest user lists from all currently joined rooms.
+- map calculates the user count for each room and the combined total.
+- merge combines message streams from the joined rooms.
+- scan maintains the accumulated message timeline, while timestamps are used to order messages chronologically.
+
+To demonstrate independent understanding, I should be able to explain the data flow, identify where each operator is used in the source code, run the server and frontend, and reproduce the join-room, membership-update, message, and leave-room tests. I should also be able to make a small change to the interface or stream logic and explain its effect.
+
+The final responsibility for reviewing, understanding, testing, and submitting the work remains mine. AI-generated suggestions are not treated as proof that the application is correct.
