@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f2eb"><title>Roomwave · RxJS Chat</title>
+</head>
+<body>
+<div id="app">
+  <section id="auth" class="auth-wrap">
+    <div class="auth-aside"><div class="auth-brand"><span class="logo">R</span><span>ROOMWAVE</span></div><div class="auth-pitch"><p class="eyebrow">MILESTONE 4 · RXJS</p><h1>Conversations<br><em>in motion.</em></h1><p>A real-time chat space where rooms, members and messages stay in sync through reactive streams.</p><div class="auth-feature"><span>01</span> Live room membership</div><div class="auth-feature"><span>02</span> Unified message timeline</div><div class="auth-feature"><span>03</span> Reactive updates with RxJS</div></div><div class="auth-footer">A small chat app with a reactive core.</div></div>
+    <div class="auth-form-side"><div class="auth-card"><p class="eyebrow">WELCOME TO ROOMWAVE</p><h2>Join the conversation.</h2><p class="muted">Log in or create an account to continue.</p><div class="tabs"><button id="loginTab" class="active" type="button">Log in</button><button id="registerTab" type="button">Create account</button></div>
+      <form id="authForm"><label>Username<input id="username" required autocomplete="username" placeholder="Your username"></label><label>Password<input id="password" required type="password" autocomplete="current-password" placeholder="Your password"></label><button class="primary wide" id="authSubmit">Log in</button></form>
+      <p id="authError" class="error"></p><p class="connection"><i id="authDot"></i><span id="authStatus">Connecting…</span></p>
+    </div></div>
+  </section>
+
+  <div id="workspace" class="app-shell hidden">
+    <header class="global-header"><div class="global-brand"><span class="logo small">R</span><span><b>Roomwave</b><small>THE REACTIVE CHAT SPACE</small></span></div><div class="header-center"><span class="header-kicker">WORKSPACE</span><span class="header-divider"></span><span>Messages & rooms</span></div><div class="header-user"><span class="header-online"></span><span id="who">User</span><button id="logout" title="Log out" aria-label="Log out">↗</button></div></header>
+    <div class="workspace-grid">
+      <aside class="sidebar">
+        <div class="sidebar-intro"><p class="eyebrow">YOUR SPACE</p><h2>Rooms</h2><p>Find a conversation or start a new one.</p></div>
+        <div class="side-title"><span>ALL ROOMS</span><button id="refresh" type="button">↻ Refresh</button></div>
+        <div id="rooms" class="rooms"></div>
+        <form id="createForm" class="create"><div class="create-heading"><span class="plus">＋</span><b>Create a room</b></div><input id="roomName" required placeholder="Room name"><input id="roomDesc" placeholder="Add a short description"><button class="secondary wide">Create room <span>↗</span></button></form>
+        <div class="sidebar-bottom"><div class="avatar" id="avatar">U</div><div class="user-copy"><b id="userLabel">Signed in</b><small>Account active</small></div><p class="server-status"><i id="serverDot"></i><span id="serverText">Connecting</span></p></div>
+      </aside>
+
+      <main class="main">
+        <section class="welcome-row"><div><p class="eyebrow">TUESDAY · YOUR CHAT OVERVIEW</p><h1>Good to see you<span>.</span></h1><p class="welcome-copy">Here's what's happening across your rooms.</p></div><span class="live"><i></i> LIVE CONNECTION</span></section>
+        <section class="stats"><article class="stat-card"><div class="stat-top"><small>ROOMS JOINED</small><span class="stat-symbol">▦</span></div><strong id="joinedCount">0</strong><label>Active room subscriptions</label></article><article class="stat-card stat-featured"><div class="stat-top"><small>TOTAL MEMBERSHIPS</small><span class="stat-symbol">◎</span></div><strong id="totalCount">0</strong><label id="breakdown">Join rooms to monitor users</label></article><article class="stat-card"><div class="stat-top"><small>MESSAGES IN FEED</small><span class="stat-symbol">≋</span></div><strong id="msgCount">0</strong><label>Across all joined rooms</label></article></section>
+        <div class="content-grid">
+          <section class="panel chat-panel"><div class="panel-head"><div><p class="eyebrow">YOUR CONVERSATIONS</p><h3>All messages <span class="tiny-live">● LIVE</span></h3></div><span class="chron">OLDEST → NEWEST</span></div><div id="feed" class="feed"><div class="empty"><span class="empty-mark">✳</span><b>Your timeline is quiet.</b><p>Join a room to see its messages appear here automatically.</p></div></div><form id="sendForm" class="composer"><select id="sendRoom" required><option value="">Join a room first</option></select><input id="message" required maxlength="1000" placeholder="Write something thoughtful…"><button class="primary">Send <span>↗</span></button></form></section>
+          <aside class="right-rail"><section class="panel members-panel"><div class="panel-head"><div><p class="eyebrow">ROOM ACTIVITY</p><h3>Who's here?</h3></div><span class="live-tag">LIVE</span></div><div class="member-select"><label for="memberRoom">CURRENT ROOM</label><select id="memberRoom"><option value="">No joined rooms</option></select></div><div id="members" class="members"><p class="muted">No room selected.</p></div></section>
+          <section class="panel pipeline"><div class="panel-head"><div><p class="eyebrow">BUILT WITH RXJS</p><h3>Reactive engine</h3></div><span class="rx">Rx</span></div><div class="pipe"><b>01</b><span><strong>Joined rooms</strong><small>BehaviorSubject · switchMap</small></span><i>✓</i></div><div class="pipe"><b>02</b><span><strong>Member aggregation</strong><small>combineLatest · map</small></span><i>✓</i></div><div class="pipe"><b>03</b><span><strong>Message timeline</strong><small>merge · scan · sort</small></span><i>✓</i></div><p class="note">Streams react to server events. No manual refresh needed.</p></section></aside>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+</div>
+<script type="module" src="/src/main.js"></script>
+</body></html>
